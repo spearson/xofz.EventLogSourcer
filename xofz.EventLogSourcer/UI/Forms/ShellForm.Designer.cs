@@ -113,7 +113,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "ShellForm";
-            this.Text = "Event Log Sourcer by X of Z";
+            this.Text = "Event Log Sourcer";
             this.ResumeLayout(false);
             this.PerformLayout();
 
