@@ -3,7 +3,7 @@
     using System;
     using xofz.UI;
 
-    public interface HomeUi : Ui
+    public interface HomeUi : ShowableUi
     {
         event Action CreateSourceKeyTapped;
 
@@ -12,5 +12,9 @@
         string LogName { get; set; }
 
         string SourceName { get; set; }
+
+        void FocusAndSelectSourceInput();
+
+        void FocusAndSelectLogInput();
     }
 }

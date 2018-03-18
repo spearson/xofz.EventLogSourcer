@@ -76,7 +76,8 @@
             this.logNameTextBox.Location = new System.Drawing.Point(112, 12);
             this.logNameTextBox.Name = "logNameTextBox";
             this.logNameTextBox.Size = new System.Drawing.Size(160, 26);
-            this.logNameTextBox.TabIndex = 3;
+            this.logNameTextBox.TabIndex = 0;
+            this.logNameTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.logNameTextBox_KeyPress);
             // 
             // sourceNameTextBox
             // 
@@ -84,7 +85,8 @@
             this.sourceNameTextBox.Location = new System.Drawing.Point(112, 44);
             this.sourceNameTextBox.Name = "sourceNameTextBox";
             this.sourceNameTextBox.Size = new System.Drawing.Size(160, 26);
-            this.sourceNameTextBox.TabIndex = 4;
+            this.sourceNameTextBox.TabIndex = 1;
+            this.sourceNameTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.sourceNameTextBox_KeyPress);
             // 
             // deleteSourceKey
             // 
@@ -95,7 +97,7 @@
             this.deleteSourceKey.Location = new System.Drawing.Point(112, 136);
             this.deleteSourceKey.Name = "deleteSourceKey";
             this.deleteSourceKey.Size = new System.Drawing.Size(160, 54);
-            this.deleteSourceKey.TabIndex = 5;
+            this.deleteSourceKey.TabIndex = 3;
             this.deleteSourceKey.Text = "Delete";
             this.deleteSourceKey.UseVisualStyleBackColor = true;
             this.deleteSourceKey.Click += new System.EventHandler(this.deleteSourceKey_Click);

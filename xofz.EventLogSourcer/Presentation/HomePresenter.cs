@@ -31,6 +31,7 @@
                 () => this.ui.LogName = "Application");
             this.ui.CreateSourceKeyTapped += this.ui_CreateSourceKeyTapped;
             this.ui.DeleteSourceKeyTapped += this.ui_DeleteSourceKeyTapped;
+            this.ui.FirstShown += this.ui_FirstShown;
         }
 
         public override void Start()
@@ -45,9 +46,16 @@
                 () => this.ui.LogName);
             if (string.IsNullOrWhiteSpace(logName))
             {
-                w.Run<Messenger>(m => UiHelpers.Write(
-                    m.Subscriber,
-                    () => m.GiveError("Please enter a valid log name.")));
+                w.Run<Messenger>(m =>
+                {
+                    UiHelpers.Write(
+                        m.Subscriber,
+                        () => m.GiveError("Please enter a valid log name."));
+                    m.Subscriber.WriteFinished.WaitOne();
+                });
+                UiHelpers.Write(
+                    this.ui,
+                    this.ui.FocusAndSelectLogInput);
                 return;
             }
 
@@ -62,8 +70,11 @@
                         m.Subscriber,
                         () => m.GiveError(
                             "Please enter a valid source name."));
+                    m.Subscriber.WriteFinished.WaitOne();
                 });
-                    
+                UiHelpers.Write(
+                    this.ui,
+                    this.ui.FocusAndSelectSourceInput);
                 return;
             }
 
@@ -80,10 +91,16 @@
             if (alreadyExists)
             {
                 w.Run<Messenger>(m =>
+                {
                     UiHelpers.Write(
                         m.Subscriber,
                         () => m.GiveError(
-                            "Source already exists.")));
+                            "Source already exists."));
+                    m.Subscriber.WriteFinished.WaitOne();
+                });
+                UiHelpers.Write(
+                    this.ui,
+                    this.ui.FocusAndSelectSourceInput);
                 return;
             }
 
@@ -102,6 +119,9 @@
 
             if (notReally)
             {
+                UiHelpers.Write(
+                    this.ui,
+                    this.ui.FocusAndSelectSourceInput);
                 return;
             }
 
@@ -113,21 +133,35 @@
             }
             catch (Exception ex)
             {
-                w.Run<Messenger>(m => UiHelpers.Write(
-                    m.Subscriber,
-                    () => m.GiveError(
-                        "Error creating source."
-                        + Environment.NewLine
-                        + ex.GetType()
-                        + Environment.NewLine
-                        + ex.Message)));
+                w.Run<Messenger>(m =>
+                {
+                    UiHelpers.Write(
+                        m.Subscriber,
+                        () => m.GiveError(
+                            "Error creating source."
+                            + Environment.NewLine
+                            + ex.GetType()
+                            + Environment.NewLine
+                            + ex.Message));
+                    m.Subscriber.WriteFinished.WaitOne();
+                });
+                UiHelpers.Write(
+                    this.ui,
+                    this.ui.FocusAndSelectSourceInput);
                 return;
             }
 
-            w.Run<Messenger>(m => UiHelpers.Write(
-                m.Subscriber,
-                () => m.Inform(
-                    "Source created.")));
+            w.Run<Messenger>(m =>
+            {
+                UiHelpers.Write(
+                    m.Subscriber,
+                    () => m.Inform(
+                        "Source created."));
+                m.Subscriber.WriteFinished.WaitOne();
+            });
+            UiHelpers.Write(
+                this.ui,
+                this.ui.FocusAndSelectSourceInput);
         }
 
         private void ui_DeleteSourceKeyTapped()
@@ -138,9 +172,16 @@
                 () => this.ui.LogName);
             if (string.IsNullOrWhiteSpace(logName))
             {
-                w.Run<Messenger>(m => UiHelpers.Write(
-                    m.Subscriber,
-                    () => m.GiveError("Please enter a valid log name.")));
+                w.Run<Messenger>(m =>
+                {
+                    UiHelpers.Write(
+                        m.Subscriber,
+                        () => m.GiveError("Please enter a valid log name."));
+                    m.Subscriber.WriteFinished.WaitOne();
+                });
+                UiHelpers.Write(
+                    this.ui,
+                    this.ui.FocusAndSelectLogInput);
                 return;
             }
 
@@ -155,7 +196,12 @@
                         m.Subscriber,
                         () => m.GiveError(
                             "Please enter a valid source name."));
+                    m.Subscriber.WriteFinished.WaitOne();
                 });
+
+                UiHelpers.Write(
+                    this.ui,
+                    this.ui.FocusAndSelectSourceInput);
 
                 return;
             }
@@ -173,10 +219,16 @@
             if (doesNotExist)
             {
                 w.Run<Messenger>(m =>
+                {
                     UiHelpers.Write(
                         m.Subscriber,
                         () => m.GiveError(
-                            "Source does not exist.")));
+                            "Source does not exist."));
+                    m.Subscriber.WriteFinished.WaitOne();
+                });
+                UiHelpers.Write(
+                    this.ui,
+                    this.ui.FocusAndSelectSourceInput);
                 return;
             }
 
@@ -195,6 +247,9 @@
 
             if (notReally)
             {
+                UiHelpers.Write(
+                    this.ui,
+                    this.ui.FocusAndSelectSourceInput);
                 return;
             }
 
@@ -205,21 +260,43 @@
             }
             catch (Exception ex)
             {
-                w.Run<Messenger>(m => UiHelpers.Write(
-                    m.Subscriber,
-                    () => m.GiveError(
-                        "Error deleting source."
-                        + Environment.NewLine
-                        + ex.GetType()
-                        + Environment.NewLine
-                        + ex.Message)));
+                w.Run<Messenger>(m =>
+                {
+                    UiHelpers.Write(
+                        m.Subscriber,
+                        () => m.GiveError(
+                            "Error deleting source."
+                            + Environment.NewLine
+                            + ex.GetType()
+                            + Environment.NewLine
+                            + ex.Message));
+                    m.Subscriber.WriteFinished.WaitOne();
+                });
+                UiHelpers.Write(
+                    this.ui,
+                    this.ui.FocusAndSelectSourceInput);
                 return;
             }
 
-            w.Run<Messenger>(m => UiHelpers.Write(
-                m.Subscriber,
-                () => m.Inform(
-                    "Source deleted.")));
+            w.Run<Messenger>(m =>
+            {
+                UiHelpers.Write(
+                    m.Subscriber,
+                    () => m.Inform(
+                        "Source deleted."));
+                m.Subscriber.WriteFinished.WaitOne();
+            });
+
+            UiHelpers.Write(
+                this.ui,
+                this.ui.FocusAndSelectSourceInput);
+        }
+
+        private void ui_FirstShown()
+        {
+            UiHelpers.Write(
+                this.ui,
+                this.ui.FocusAndSelectSourceInput);
         }
 
         private int setupIf1;
